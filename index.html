@@ -3,436 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Acelera Negócios - Promoção e Vendas</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-
+    <title>Encontre na sua Região</title>
     <style>
-        /* --- Reset Básico e Configurações Globais --- */
-        :root {
-            --primary-color: #0056b3; /* Azul corporativo */
-            --secondary-color: #0a2540; /* Azul escuro para textos */
-            --accent-color: #ff6600; /* Laranja vibrante para CTAs */
-            --light-gray: #f4f4f4;
-            --dark-gray: #333;
-            --white-color: #ffffff;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            scroll-behavior: smooth;
-        }
-
+        /* Estilos para a aparência da página */
         body {
-            font-family: 'Poppins', sans-serif;
-            line-height: 1.6;
-            background-color: var(--white-color);
-            color: var(--dark-gray);
-        }
-
-        .container {
-            max-width: 1100px;
-            margin: auto;
-            overflow: hidden;
-            padding: 0 2rem;
-        }
-
-        h1, h2, h3 {
-            font-weight: 600;
-            color: var(--secondary-color);
-        }
-        
-        section {
-            padding: 4rem 0;
-        }
-
-        /* --- Cabeçalho (Header) --- */
-        .main-header {
-            background: var(--white-color);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            width: 100%;
-        }
-
-        .main-header .container {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 2rem;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--primary-color);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-        }
-        
-        .logo svg {
-            margin-right: 8px;
-            width: 28px;
-            height: 28px;
-        }
-
-        .main-nav ul {
-            display: flex;
-            list-style: none;
-        }
-
-        .main-nav ul li {
-            margin-left: 25px;
-        }
-
-        .main-nav a {
-            text-decoration: none;
-            color: var(--secondary-color);
-            font-weight: 600;
-            transition: color 0.3s ease;
-        }
-
-        .main-nav a:hover {
-            color: var(--primary-color);
-        }
-        
-        /* --- Seção Hero --- */
-        .hero {
-            background-image: linear-gradient(rgba(10, 37, 64, 0.8), rgba(10, 37, 64, 0.8)), url('https://picsum.photos/1920/1080?image=15'); /* IMAGEM SUGESTIVA: Equipe de negócios celebrando */
-            background-size: cover;
-            background-position: center;
-            height: 90vh;
-            display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #1a1a1a; /* Fundo escuro */
+            color: #fff; /* Texto branco */
             text-align: center;
-            color: var(--white-color);
-            padding: 0 2rem;
+            padding: 15px;
         }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            font-weight: 700;
-            color: var(--white-color);
-        }
-        
-        .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-        }
-
-        .btn {
-            display: inline-block;
-            background: var(--accent-color);
-            color: var(--white-color);
-            padding: 1rem 2.5rem;
-            text-decoration: none;
-            font-size: 1.1rem;
-            font-weight: 600;
-            border-radius: 50px;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-        }
-
-        .btn:hover {
-            background-color: #e65c00;
-            transform: translateY(-3px);
-        }
-
-        /* --- Seções Padrão (Sobre, Serviços, etc) --- */
-        .section-title {
-            text-align: center;
-            margin-bottom: 3rem;
-            font-size: 2.5rem;
-        }
-
-        #sobre, #contato {
-            background-color: var(--light-gray);
-        }
-
-        #sobre p {
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: center;
-            font-size: 1.1rem;
-        }
-
-        /* --- Seção de Serviços --- */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-        
-        .service-card {
-            background: var(--white-color);
-            padding: 2.5rem 2rem;
-            text-align: center;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .service-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 8px 25px rgba(0, 86, 179, 0.15);
-        }
-        
-        .service-card .icon {
-            font-size: 3rem;
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-        }
-
-        .service-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        /* --- Seção de Depoimentos --- */
-        .testimonial-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-        
-        .testimonial-card {
-            background: var(--light-gray);
-            padding: 2rem;
-            border-left: 5px solid var(--primary-color);
-            border-radius: 5px;
-        }
-        
-        .testimonial-card p.quote {
-            font-style: italic;
-            margin-bottom: 1rem;
-        }
-
-        .testimonial-card p.author {
-            font-weight: 600;
-            color: var(--primary-color);
-        }
-        
-        /* --- Formulário de Contato --- */
-        .contact-form {
-            max-width: 700px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-        
-        .contact-form label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-        }
-        
-        .contact-form input,
-        .contact-form textarea {
-            width: 100%;
-            padding: 0.8rem;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-family: 'Poppins', sans-serif;
-            font-size: 1rem;
-        }
-        
-        .contact-form textarea {
-            resize: vertical;
-            height: 150px;
-        }
-
-        /* --- Rodapé (Footer) --- */
-        .main-footer {
-            background: var(--secondary-color);
-            color: var(--white-color);
-            padding: 3rem 0;
-            text-align: center;
-        }
-        
-        .footer-content {
+        .container {
+            padding: 30px 40px;
+            border-radius: 12px;
+            background-color: #2c2c2c; /* Cor do container um pouco mais clara */
+            box-shadow: 0 6px 15px rgba(0,0,0,0.4);
             max-width: 600px;
-            margin: 0 auto;
+            width: 100%;
         }
-        
-        .footer-content h3 {
-            color: var(--white-color);
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
+        h1 {
+            font-size: 2.2em;
+            color: #ff6f61; /* Cor de destaque, como um coral/vermelho */
+            margin: 0;
+            line-height: 1.4;
+            min-height: 100px; /* Espaço para evitar pulos de layout */
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        
-        .footer-content p {
-            margin-bottom: 0.5rem;
-            color: #ccc;
+        #cidade {
+            font-weight: bold;
+            color: #ff8f82; /* Cor mais clara para a cidade */
+            text-decoration: underline;
         }
-
-        .copyright {
-            margin-top: 2rem;
-            border-top: 1px solid #444;
-            padding-top: 2rem;
-            font-size: 0.9rem;
-            color: #ccc;
+        /* Estilo do indicador de carregamento */
+        .loader {
+            border: 5px solid #444;
+            border-radius: 50%;
+            border-top: 5px solid #ff6f61;
+            width: 50px;
+            height: 50px;
+            animation: spin 1.5s linear infinite;
+            margin: 20px auto;
         }
-        
-        /* --- Responsividade --- */
-        @media (max-width: 768px) {
-            .main-header .container {
-                flex-direction: column;
-            }
-
-            .main-nav ul {
-                margin-top: 1rem;
-                padding: 0;
-            }
-            
-            .main-nav ul li {
-                margin: 0 10px;
-            }
-
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .section-title {
-                font-size: 2rem;
-            }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        /* Mensagem de erro */
+        #mensagem-erro {
+            color: #ff9a9a;
+            margin-top: 15px;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
 
-    <header class="main-header">
-        <div class="container">
-            <a href="#" class="logo">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10M18 20V4M6 20v-4"/></svg>
-                AceleraBiz
-            </a>
-            <nav class="main-nav">
-                <ul>
-                    <li><a href="#inicio">Início</a></li>
-                    <li><a href="#sobre">Sobre Nós</a></li>
-                    <li><a href="#servicos">Serviços</a></li>
-                    <li><a href="#contato">Contato</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-
-    <main>
-        <section class="hero" id="inicio">
-            <h1>Aceleramos negócios e maximizamos resultados</h1>
-            <p>Estratégias de vendas e promoção que impulsionam o seu crescimento.</p>
-            <a href="#contato" class="btn">Fale Conosco</a>
-        </section>
-
-        <section id="sobre">
-            <div class="container">
-                <h2 class="section-title">Quem Somos</h2>
-                <p>
-                    Somos especialistas em promoção de vendas, dedicados a transformar o potencial do seu negócio em resultados concretos. Com uma abordagem dinâmica e focada em dados, criamos e executamos estratégias personalizadas que não apenas aumentam suas vendas, mas também fortalecem sua marca no mercado. Nossa missão é ser o motor que acelera seu sucesso.
-                </p>
-            </div>
-        </section>
+    <div class="container">
         
-        <section id="servicos">
-            <div class="container">
-                <h2 class="section-title">Nossos Serviços</h2>
-                <div class="services-grid">
-                    <div class="service-card">
-                         <div class="icon">🚀</div>
-                        <h3>Consultoria Estratégica</h3>
-                        <p>Analisamos seu mercado e criamos um plano de vendas e promoção sob medida para seus objetivos.</p>
-                    </div>
-                    <div class="service-card">
-                        <div class="icon">🎯</div>
-                        <h3>Gestão de Campanhas</h3>
-                        <p>Planejamos e executamos campanhas promocionais de alto impacto, do início ao fim.</p>
-                    </div>
-                    <div class="service-card">
-                        <div class="icon">📈</div>
-                        <h3>Marketing de Performance</h3>
-                        <p>Utilizamos o marketing digital focado em conversão para atrair e reter clientes valiosos.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <h1 id="frase-principal" style="display: none;">
+            ESTÁ BUSCANDO CASADAS QUENTES PRÓXIMO A <span id="cidade">...</span>?
+        </h1>
 
-        <section id="depoimentos" style="background-color: #ffffff;">
-            <div class="container">
-                <h2 class="section-title">O que Nossos Clientes Dizem</h2>
-                <div class="testimonial-grid">
-                    <div class="testimonial-card">
-                        <p class="quote">"O trabalho da equipe foi um divisor de águas para nós. Nossas vendas cresceram 40% em um trimestre!"</p>
-                        <p class="author">- João Silva, CEO da InovaTech</p>
-                    </div>
-                    <div class="testimonial-card">
-                        <p class="quote">"Profissionalismo e resultados. Eles realmente entendem do que fazem e entregam o que prometem."</p>
-                        <p class="author">- Maria Oliveira, Diretora de Marketing da VendeMais</p>
-                    </div>
-                     <div class="testimonial-card">
-                        <p class="quote">"Conseguimos atingir um novo público e fortalecer nossa presença online de forma impressionante."</p>
-                        <p class="author">- Carlos Pereira, Gerente da Comércio Local</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <div id="loader" class="loader"></div>
         
-        <section id="contato">
-            <div class="container">
-                <h2 class="section-title">Entre em Contato</h2>
-                <p style="text-align:center; max-width: 600px; margin: -2rem auto 3rem auto;">
-                    Pronto para acelerar seu negócio? Preencha o formulário abaixo e nossa equipe entrará em contato em breve.
-                </p>
-                <form class="contact-form" action="mailto:luisferborges1002@gmail.com" method="post" enctype="text/plain">
-                    <div class="form-group">
-                        <label for="name">Nome</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">E-mail</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">Telefone</label>
-                        <input type="tel" id="phone" name="phone">
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Mensagem</label>
-                        <textarea id="message" name="message" required></textarea>
-                    </div>
-                    <button type="submit" class="btn" style="align-self: center;">Enviar Mensagem</button>
-                </form>
-            </div>
-        </section>
-    </main>
+        <p id="mensagem-erro" style="display: none;">
+            Não foi possível obter sua localização. Por favor, ative o serviço de localização no seu navegador e permita o acesso.
+        </p>
+    </div>
 
-    <footer class="main-footer">
-        <div class="container">
-            <div class="footer-content">
-                <h3>58.962.230 LUIS FERNANDO BORGES SANTOS</h3>
-                <p>Atividade: Promoção de vendas – Aceleramos negócios</p>
-                <p>Endereço: R da Passarela, 170 – Bairro São Miguel, Ilhéus – BA, CEP 45657-615</p>
-                <p>Telefone: (73) 9991-8088</p>
-                <p>E-mail: luisferborges1002@gmail.com</p>
-            </div>
-            <div class="copyright">
-                <p>© 2025 – Todos os direitos reservados</p>
-            </div>
-        </div>
-    </footer>
+    <script>
+        // Função executada quando a página termina de carregar
+        window.onload = function() {
+            // Pega as referências dos elementos HTML que vamos manipular
+            const cidadeElemento = document.getElementById('cidade');
+            const loaderElemento = document.getElementById('loader');
+            const mensagemErroElemento = document.getElementById('mensagem-erro');
+            const frasePrincipalElemento = document.getElementById('frase-principal');
+
+            // Verifica se o navegador do usuário suporta a API de Geolocalização
+            if (navigator.geolocation) {
+                // Se suportar, pede a posição atual do usuário
+                navigator.geolocation.getCurrentPosition(
+                    // 1. Função de sucesso (se o usuário permitir)
+                    async function(posicao) {
+                        const latitude = posicao.coords.latitude;
+                        const longitude = posicao.coords.longitude;
+
+                        try {
+                            // Usa a API gratuita Nominatim (do OpenStreetMap) para converter coordenadas em um nome de local
+                            const urlApi = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}`;
+                            
+                            const resposta = await fetch(urlApi);
+                            const dados = await resposta.json();
+
+                            // Extrai o nome da cidade, vila ou município dos dados recebidos
+                            const cidade = dados.address.city || dados.address.town || dados.address.village || "sua região";
+                            
+                            // Atualiza o texto na página com a cidade encontrada
+                            cidadeElemento.textContent = cidade;
+
+                        } catch (erro) {
+                            console.error("Erro ao buscar o nome da cidade:", erro);
+                            // Caso a API falhe, mostra uma mensagem genérica
+                            cidadeElemento.textContent = "sua localização";
+                        } finally {
+                            // Esconde o loader e mostra a frase com a localização
+                            loaderElemento.style.display = 'none';
+                            frasePrincipalElemento.style.display = 'block';
+                        }
+                    },
+                    // 2. Função de erro (se o usuário negar ou houver um erro)
+                    function(erro) {
+                        console.error("Erro de geolocalização:", erro.message);
+                        // Esconde o loader e mostra a mensagem de erro
+                        loaderElemento.style.display = 'none';
+                        mensagemErroElemento.style.display = 'block';
+                    }
+                );
+            } else {
+                // Se o navegador não suportar geolocalização
+                console.error("Geolocalização não é suportada por este navegador.");
+                loaderElemento.style.display = 'none';
+                mensagemErroElemento.textContent = "Seu navegador não suporta geolocalização.";
+                mensagemErroElemento.style.display = 'block';
+            }
+        };
+    </script>
 
 </body>
 </html>
