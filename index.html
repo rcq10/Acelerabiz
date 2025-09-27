@@ -40,6 +40,7 @@
             font-weight: bold;
             color: #ff8f82; /* Cor mais clara para a cidade */
             text-decoration: underline;
+            padding: 0 8px; /* Adiciona um pequeno espaço ao redor da cidade */
         }
         /* Estilo do indicador de carregamento */
         .loader {
@@ -55,11 +56,22 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-        /* Mensagem de erro */
-        #mensagem-erro {
-            color: #ff9a9a;
-            margin-top: 15px;
+        /* Estilo do botão de ação */
+        .action-button {
+            background-color: #ff6f61;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2em;
             font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 25px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .action-button:hover {
+            background-color: #e65a50;
+            transform: scale(1.05);
         }
     </style>
 </head>
@@ -68,72 +80,55 @@
     <div class="container">
         
         <h1 id="frase-principal" style="display: none;">
-            ESTÁ BUSCANDO CASADAS QUENTES PRÓXIMO A <span id="cidade">...</span>?
+            ESTÁ BUSCANDO CASADAS QUENTES PRÓXIMO A<span id="cidade">...</span>?
         </h1>
 
         <div id="loader" class="loader"></div>
         
-        <p id="mensagem-erro" style="display: none;">
-            Não foi possível obter sua localização. Por favor, ative o serviço de localização no seu navegador e permita o acesso.
-        </p>
+        <button id="cta-button" class="action-button" style="display: none;">EU QUERO</button>
+
     </div>
 
     <script>
         // Função executada quando a página termina de carregar
         window.onload = function() {
-            // Pega as referências dos elementos HTML que vamos manipular
+            // Referências dos elementos HTML
             const cidadeElemento = document.getElementById('cidade');
             const loaderElemento = document.getElementById('loader');
-            const mensagemErroElemento = document.getElementById('mensagem-erro');
             const frasePrincipalElemento = document.getElementById('frase-principal');
+            const ctaButton = document.getElementById('cta-button');
 
-            // Verifica se o navegador do usuário suporta a API de Geolocalização
-            if (navigator.geolocation) {
-                // Se suportar, pede a posição atual do usuário
-                navigator.geolocation.getCurrentPosition(
-                    // 1. Função de sucesso (se o usuário permitir)
-                    async function(posicao) {
-                        const latitude = posicao.coords.latitude;
-                        const longitude = posicao.coords.longitude;
-
-                        try {
-                            // Usa a API gratuita Nominatim (do OpenStreetMap) para converter coordenadas em um nome de local
-                            const urlApi = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}`;
-                            
-                            const resposta = await fetch(urlApi);
-                            const dados = await resposta.json();
-
-                            // Extrai o nome da cidade, vila ou município dos dados recebidos
-                            const cidade = dados.address.city || dados.address.town || dados.address.village || "sua região";
-                            
-                            // Atualiza o texto na página com a cidade encontrada
-                            cidadeElemento.textContent = cidade;
-
-                        } catch (erro) {
-                            console.error("Erro ao buscar o nome da cidade:", erro);
-                            // Caso a API falhe, mostra uma mensagem genérica
-                            cidadeElemento.textContent = "sua localização";
-                        } finally {
-                            // Esconde o loader e mostra a frase com a localização
-                            loaderElemento.style.display = 'none';
-                            frasePrincipalElemento.style.display = 'block';
-                        }
-                    },
-                    // 2. Função de erro (se o usuário negar ou houver um erro)
-                    function(erro) {
-                        console.error("Erro de geolocalização:", erro.message);
-                        // Esconde o loader e mostra a mensagem de erro
-                        loaderElemento.style.display = 'none';
-                        mensagemErroElemento.style.display = 'block';
-                    }
-                );
-            } else {
-                // Se o navegador não suportar geolocalização
-                console.error("Geolocalização não é suportada por este navegador.");
+            // Função para mostrar o resultado final na tela
+            const mostrarResultado = (local) => {
+                cidadeElemento.textContent = local;
                 loaderElemento.style.display = 'none';
-                mensagemErroElemento.textContent = "Seu navegador não suporta geolocalização.";
-                mensagemErroElemento.style.display = 'block';
-            }
+                frasePrincipalElemento.style.display = 'block';
+                ctaButton.style.display = 'inline-block'; // Mostra o botão
+            };
+            
+            // Função para buscar localização via IP (NÃO PEDE PERMISSÃO)
+            const buscarLocalizacaoPorIP = async () => {
+                try {
+                    // Usamos um serviço gratuito que retorna dados de localização baseados no IP
+                    const resposta = await fetch('http://ip-api.com/json');
+                    const dados = await resposta.json();
+
+                    // Se a API retornar a cidade com sucesso, usamos ela
+                    if (dados && dados.status === 'success' && dados.city) {
+                        mostrarResultado(dados.city);
+                    } else {
+                        // Se falhar ou não encontrar a cidade, usamos a frase de fallback
+                        mostrarResultado("SUA REGIÃO");
+                    }
+                } catch (erro) {
+                    // Se houver qualquer erro de rede, usamos a frase de fallback
+                    console.error("Erro ao buscar localização por IP:", erro);
+                    mostrarResultado("SUA REGIÃO");
+                }
+            };
+
+            // Inicia a busca pela localização assim que a página carrega
+            buscarLocalizacaoPorIP();
         };
     </script>
 
