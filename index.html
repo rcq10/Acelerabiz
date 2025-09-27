@@ -25,24 +25,24 @@
             box-shadow: 0 6px 15px rgba(0,0,0,0.4);
             max-width: 600px;
             width: 100%;
+            box-sizing: border-box; /* Garante que o padding não quebre o layout */
         }
         h1 {
             font-size: 2.2em;
-            color: #ff6f61; /* Cor de destaque, como um coral/vermelho */
+            color: #ff6f61; /* Cor de destaque */
             margin: 0;
             line-height: 1.4;
-            min-height: 100px; /* Espaço para evitar pulos de layout */
+            min-height: 100px; 
             display: flex;
             align-items: center;
             justify-content: center;
         }
         #cidade {
             font-weight: bold;
-            color: #ff8f82; /* Cor mais clara para a cidade */
+            color: #ff8f82; 
             text-decoration: underline;
-            padding: 0 8px; /* Adiciona um pequeno espaço ao redor da cidade */
+            padding: 0 8px;
         }
-        /* Estilo do indicador de carregamento */
         .loader {
             border: 5px solid #444;
             border-radius: 50%;
@@ -56,8 +56,8 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-        /* Estilo do botão de ação */
         .action-button {
+            display: inline-block;
             background-color: #ff6f61;
             color: white;
             border: none;
@@ -67,11 +67,29 @@
             border-radius: 8px;
             cursor: pointer;
             margin-top: 25px;
+            text-decoration: none;
             transition: background-color 0.3s ease, transform 0.2s ease;
         }
         .action-button:hover {
             background-color: #e65a50;
             transform: scale(1.05);
+        }
+
+        /* =============================================== */
+        /* NOVO: CÓDIGO PARA RESPONSIVIDADE       */
+        /* =============================================== */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.6em; /* Diminui a fonte do título */
+                min-height: 80px;
+            }
+            .container {
+                padding: 25px 20px; /* Diminui o espaçamento interno */
+            }
+            .action-button {
+                font-size: 1em; /* Diminui a fonte do botão */
+                padding: 15px 30px; /* Diminui o tamanho do botão */
+            }
         }
     </style>
 </head>
@@ -85,49 +103,43 @@
 
         <div id="loader" class="loader"></div>
         
-        <button id="cta-button" class="action-button" style="display: none;">EU QUERO</button>
+        <a href="https://wiinbot.com/atendimento?ref=68d1fc20fa85cc02d63ea952" id="cta-button" class="action-button" style="display: none;">EU QUERO</a>
 
     </div>
 
     <script>
-        // Função executada quando a página termina de carregar
         window.onload = function() {
-            // Referências dos elementos HTML
             const cidadeElemento = document.getElementById('cidade');
             const loaderElemento = document.getElementById('loader');
             const frasePrincipalElemento = document.getElementById('frase-principal');
             const ctaButton = document.getElementById('cta-button');
 
-            // Função para mostrar o resultado final na tela
             const mostrarResultado = (local) => {
                 cidadeElemento.textContent = local;
                 loaderElemento.style.display = 'none';
                 frasePrincipalElemento.style.display = 'block';
-                ctaButton.style.display = 'inline-block'; // Mostra o botão
+                ctaButton.style.display = 'inline-block';
             };
             
-            // Função para buscar localização via IP (NÃO PEDE PERMISSÃO)
             const buscarLocalizacaoPorIP = async () => {
                 try {
-                    // Usamos um serviço gratuito que retorna dados de localização baseados no IP
-                    const resposta = await fetch('http://ip-api.com/json');
+                    // ===============================================
+                    //          NOVO: LINK DA API CORRIGIDO (HTTPS)
+                    // ===============================================
+                    const resposta = await fetch('https://freegeoip.app/json/');
                     const dados = await resposta.json();
 
-                    // Se a API retornar a cidade com sucesso, usamos ela
-                    if (dados && dados.status === 'success' && dados.city) {
+                    if (dados && dados.city) {
                         mostrarResultado(dados.city);
                     } else {
-                        // Se falhar ou não encontrar a cidade, usamos a frase de fallback
                         mostrarResultado("SUA REGIÃO");
                     }
                 } catch (erro) {
-                    // Se houver qualquer erro de rede, usamos a frase de fallback
                     console.error("Erro ao buscar localização por IP:", erro);
                     mostrarResultado("SUA REGIÃO");
                 }
             };
 
-            // Inicia a busca pela localização assim que a página carrega
             buscarLocalizacaoPorIP();
         };
     </script>
