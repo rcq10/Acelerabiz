@@ -32,17 +32,22 @@
             color: #ff6f61; /* Cor de destaque */
             margin: 0;
             line-height: 1.4;
-            min-height: 100px; 
+            min-height: 100px;
             display: flex;
             align-items: center;
             justify-content: center;
         }
+
+        /*
+            ================================================================
+             MUDANÇA: Estilo para #cidade para forçar letras maiúsculas.
+            ================================================================
+        */
         #cidade {
-            font-weight: bold;
-            color: #ff8f82; 
-            text-decoration: underline;
-            padding: 0 8px;
+            text-transform: uppercase; /* Garante que o texto fique em maiúsculas */
+            padding: 0 8px; /* Mantém um pequeno espaço para não ficar colado */
         }
+
         .loader {
             border: 5px solid #444;
             border-radius: 50%;
@@ -75,9 +80,7 @@
             transform: scale(1.05);
         }
 
-        /* =============================================== */
-        /* NOVO: CÓDIGO PARA RESPONSIVIDADE       */
-        /* =============================================== */
+        /* Código para Responsividade em Celulares */
         @media (max-width: 600px) {
             h1 {
                 font-size: 1.6em; /* Diminui a fonte do título */
@@ -96,13 +99,13 @@
 <body>
 
     <div class="container">
-        
+
         <h1 id="frase-principal" style="display: none;">
             ESTÁ BUSCANDO CASADAS QUENTES PRÓXIMO A<span id="cidade">...</span>?
         </h1>
 
         <div id="loader" class="loader"></div>
-        
+
         <a href="https://wiinbot.com/atendimento?ref=68d1fc20fa85cc02d63ea952" id="cta-button" class="action-button" style="display: none;">EU QUERO</a>
 
     </div>
@@ -115,24 +118,22 @@
             const ctaButton = document.getElementById('cta-button');
 
             const mostrarResultado = (local) => {
-                cidadeElemento.textContent = local;
+                const textoFinal = local || "SUA REGIÃO";
+                cidadeElemento.textContent = textoFinal;
                 loaderElemento.style.display = 'none';
                 frasePrincipalElemento.style.display = 'block';
                 ctaButton.style.display = 'inline-block';
             };
-            
+
             const buscarLocalizacaoPorIP = async () => {
                 try {
-                    // ===============================================
-                    //          NOVO: LINK DA API CORRIGIDO (HTTPS)
-                    // ===============================================
-                    const resposta = await fetch('https://freegeoip.app/json/');
-                    const dados = await resposta.json();
+                    const resposta = await fetch('https://ipinfo.io/city');
 
-                    if (dados && dados.city) {
-                        mostrarResultado(dados.city);
+                    if (resposta.ok) {
+                        const cidade = await resposta.text();
+                        mostrarResultado(cidade.trim());
                     } else {
-                        mostrarResultado("SUA REGIÃO");
+                        throw new Error('API ipinfo.io falhou');
                     }
                 } catch (erro) {
                     console.error("Erro ao buscar localização por IP:", erro);
